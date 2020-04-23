@@ -1,0 +1,98 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+
+buildscript {
+    
+    repositories {
+        google()
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:3.4.2'
+        
+
+        // NOTE: Do not place your application dependencies here; they belong
+        // in the individual module build.gradle files
+    }
+
+    ext {
+        // Dagger Versions
+        daggerVersion = "2.22.1"
+
+        // Reactive Java Versions
+        rxJavaVersion = "2.2.8"
+        rxAndroidVersion = "2.1.1"
+
+        //Web and other related versions
+        retrofitVersion = "2.4.0"
+        converterGsonVersion = "2.4.0"
+        okhttpLoggingVersion = "3.10.0"
+
+        // Image Management Versions
+        picassoVersion = "2.5.2"
+        glideVersion = "4.8.0"
+
+        //Test Versions
+        androidTestRunnerVersion = "1.0.2"
+        androidTestEspressoCoreVersion = "3.0.2"
+        jUnitVersion = "4.12"
+
+        // Android Support Versions
+        androidv7SupportLibVersion = "27.1.1"
+        androidRecyclerViewVersion = "27.1.1"
+        androidConstraintLayoutVersion = "1.1.2"
+        androidLifecycleArchVersion = "1.1.1"
+
+
+        libs = [
+            // Dagger
+            daggerCore: ('com.google.dagger:dagger:' +daggerVersion),
+            daggerCompiler: ('com.google.dagger:dagger-compiler:' +daggerVersion),
+            daggerAndroid: ('com.google.dagger:dagger-android-support:' +daggerVersion),
+            daggerAndroidProcessor: ('com.google.dagger:dagger-android-processor:' +daggerVersion),
+
+            // Reactive Java
+            rxJava2: ('io.reactivex.rxjava2:rxjava:' +rxJavaVersion),
+            rxAndroid: ('io.reactivex.rxjava2:rxandroid:' +rxAndroidVersion),
+
+            // Web and Related
+            retrofit: ('com.squareup.retrofit2:retrofit:' +retrofitVersion),
+            converterGson: ('com.squareup.retrofit2:converter-gson:' +converterGsonVersion),
+            okHttp: ('com.squareup.okhttp3:logging-interceptor:' +okhttpLoggingVersion),
+
+            // Image Management
+            glide: ('com.github.bumptech.glide:glide:' +glideVersion),
+            glideOkhttp: ('com.github.bumptech.glide:okhttp3-integration:' +glideVersion),
+            glideCompiler: ('com.github.bumptech.glide:compiler:' +glideVersion),
+
+            // Android
+            androidv7SupportLib: ('com.android.support:appcompat-v7:' +androidv7SupportLibVersion),
+            androidRecyclerView: ('com.android.support:recyclerview-v7:' +androidRecyclerViewVersion),
+            androidConstraintLayout: ('com.android.support.constraint:constraint-layout:' +androidConstraintLayoutVersion),
+            androidLifecycleArch: ('android.arch.lifecycle:extensions:' +androidLifecycleArchVersion)
+        ]
+
+        tests = [
+            androidTestRunner: ('com.android.support.test:runner:' +androidTestRunnerVersion),
+            androidTestEspresso: ('com.android.support.test.espresso:espresso-core:' +androidTestEspressoCoreVersion),
+            jUnit: ('junit:junit:' +jUnitVersion)
+        ]
+    }
+}
+
+allprojects {
+    repositories {
+        google()
+        jcenter()
+    }
+
+    ext {
+        androidCompileSdkVersion = 27
+        androidMinSdkVersion = 25
+        androidTargetSdkVersion = 27
+        javaVersion = JavaVersion.VERSION_1_8
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}

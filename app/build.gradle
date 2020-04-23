@@ -1,0 +1,78 @@
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion rootProject.ext.androidCompileSdkVersion
+    defaultConfig {
+        applicationId "com.mvvm.dogify"
+        minSdkVersion rootProject.ext.androidMinSdkVersion
+        targetSdkVersion rootProject.ext.androidTargetSdkVersion
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        targetCompatibility rootProject.ext.javaVersion
+        sourceCompatibility rootProject.ext.javaVersion
+    }
+
+    flavorDimensions "mode"
+    productFlavors {
+        mock {
+            dimension "mode"
+        }
+        prod {
+            dimension "mode"
+        }
+    }
+
+    // Disable release variant for Mock flavor. This configuration will never have a release.
+    variantFilter { variant ->
+        def names = variant.flavors*.name
+        if(variant.buildType.name == 'release' && names.contains("mock")) {
+            setIgnore(true)
+        }
+    }
+
+    dataBinding {
+        enabled = true
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    // RxJava
+    implementation libs.rxAndroid
+
+    // Dagger
+    implementation libs.daggerCore
+    annotationProcessor libs.daggerCompiler
+    implementation libs.daggerAndroid
+    annotationProcessor libs.daggerAndroidProcessor
+
+    // Android Support
+    implementation libs.androidv7SupportLib
+    implementation libs.androidConstraintLayout
+    implementation libs.androidRecyclerView
+    implementation libs.androidLifecycleArch
+
+    //Web and related
+    implementation libs.retrofit
+    implementation libs.converterGson
+    implementation libs.okHttp
+
+    //Image
+    implementation libs.glide
+    implementation libs.glideOkhttp
+    annotationProcessor libs.glideCompiler
+
+    //Testing
+    testImplementation tests.jUnit
+    androidTestImplementation tests.androidTestRunner
+    androidTestImplementation tests.androidTestEspresso
+}
